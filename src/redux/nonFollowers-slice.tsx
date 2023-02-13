@@ -14,7 +14,7 @@ export const fetchUserById = createAsyncThunk(
   'nonFollowers/fetchNonFollowers',
   async (userURL: URL, _) => {
     const response: Promise<User[]> = await fetch(
-      'https://jsonplaceholder.typicode.com/users1'
+      'https://jsonplaceholder.typicode.com/users'
     )
       .then((response) => {
         if (!response.ok) {
