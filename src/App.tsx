@@ -7,13 +7,12 @@ import 'react-toastify/dist/ReactToastify.css';
 import './App.css';
 
 // FIXME: nonFollowersList: Promise<User[]>
-// FIXME: all any
+// FIXME: fix any
 // TODO: api URL
-// TODO: setError ? allAppStateModel
 
 function App() {
   const isNonFollowersListEmpty = useSelector((state: any) => {
-    return !state.followers.nonFollowersList;
+    return !!state.followers.nonFollowersList.length;
   });
 
   return (

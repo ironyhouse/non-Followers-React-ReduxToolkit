@@ -3,9 +3,10 @@ import List from '@mui/material/List';
 import Typography from '@mui/material/Typography';
 import NonFollowersListItem from './NonFollowersListItem';
 import { useSelector } from 'react-redux';
+import { RootState } from '../redux/store';
 
 function NonFollowersList() {
-  const nonFollowersList = useSelector((state: any) => {
+  const nonFollowersList = useSelector((state: RootState) => {
     return state.followers.nonFollowersList;
   });
 

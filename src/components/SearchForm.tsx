@@ -4,56 +4,36 @@ import SearchIcon from '@mui/icons-material/Search';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  setUserURL,
-  toggleLoading,
-  toggleUserURLValidation,
-} from '../redux/searchForm-slice';
-import { setNonFollowersList } from '../redux/nonFollowers-slice';
-
-const API_URL: string = 'https://jsonplaceholder.typicode.com/users';
+import { setUserURL } from '../redux/user-slice';
+import { fetchUserById } from '../redux/nonFollowers-slice';
+import { AppDispatch } from '../redux/store';
+import { RootState } from '../redux/store';
 
 export default function SearchForm() {
-  const dispatch = useDispatch();
-  const isLoading = useSelector((state: any) => state.search.isLoading);
-  const isUserURLValid = useSelector(
-    (state: any) => state.search.isUserURLValid
-  );
+  const dispatch = useDispatch<AppDispatch>();
+  const [username, setUsername] = useState('');
+  const [isUserURLValid, setUserURLValid] = useState(true);
+  const isLoading = useSelector((state: RootState) => {
+    return state.followers.isLoading;
+  });
 
   const checkUsernameInput = (inputData: string) => {
     let username: string = inputData;
     let regExp = new RegExp(/^[a-zA-Z0-9_.]{1,30}$/);
 
-    if (regExp.test(username) && username) {
-      dispatch(setUserURL(username));
-      dispatch(toggleUserURLValidation(true));
+    if (regExp.test(username)) {
+      setUsername(username);
+      setUserURLValid(true);
     } else {
-      dispatch(toggleUserURLValidation(false));
+      setUserURLValid(false);
     }
   };
 
   const requestNonFollowers = () => {
-    dispatch(setNonFollowersList([]));
-    dispatch(toggleLoading(true));
-
-    try {
-      fetch(API_URL)
-        .then((response) => {
-          debugger;
-          return response.json();
-        })
-        .then((nonFollowers) => {
-          dispatch(setNonFollowersList(nonFollowers));
-        });
-    } catch (error) {
-      if (error instanceof Error) {
-        // setError(error.message);
-        console.error(error);
-      }
-    } finally {
-      dispatch(toggleLoading(false));
-    }
+    dispatch(setUserURL(username));
+    dispatch(fetchUserById());
   };
 
   return (
