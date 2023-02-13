@@ -2,6 +2,7 @@ import Box from '@mui/material/Box';
 import List from '@mui/material/List';
 import Typography from '@mui/material/Typography';
 import NonFollowersListItem from './NonFollowersListItem';
+
 import { useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
 

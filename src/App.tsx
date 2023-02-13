@@ -1,10 +1,11 @@
-import { useSelector } from 'react-redux';
 import Container from '@mui/material/Container';
 import NonFollowersList from './components/NonFollowersList';
 import SearchForm from './components/SearchForm';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './App.css';
+
+import { useSelector } from 'react-redux';
 
 // FIXME: nonFollowersList: Promise<User[]>
 // FIXME: fix any

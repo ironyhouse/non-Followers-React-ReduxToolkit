@@ -67,7 +67,7 @@ export default function SearchForm() {
         id="username"
         label="For example: irony.house"
         name="username"
-        onChange={(event) => checkUsernameInput(event.currentTarget.value)}
+        onChange={(event) => checkUsernameInput(event.target.value)}
       />
       <LoadingButton
         type="submit"
