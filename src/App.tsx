@@ -6,13 +6,14 @@ import 'react-toastify/dist/ReactToastify.css';
 import './App.css';
 
 import { useSelector } from 'react-redux';
+import { RootState } from './redux/store';
 
 // FIXME: nonFollowersList: Promise<User[]>
 // FIXME: fix any
 // TODO: api URL
 
 function App() {
-  const isNonFollowersListEmpty = useSelector((state: any) => {
+  const isNonFollowersListEmpty = useSelector((state: RootState) => {
     return !!state.followers.nonFollowersList.length;
   });
 

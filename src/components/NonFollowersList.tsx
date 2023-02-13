@@ -2,7 +2,7 @@ import Box from '@mui/material/Box';
 import List from '@mui/material/List';
 import Typography from '@mui/material/Typography';
 import NonFollowersListItem from './NonFollowersListItem';
-
+import User from '../redux/interfaces';
 import { useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
 
@@ -27,7 +27,7 @@ function NonFollowersList() {
         Non-Followers: {nonFollowersList.length}
       </Typography>
       <List sx={{ width: '100%' }}>
-        {nonFollowersList.map((nonFollowersListItem: any) => (
+        {nonFollowersList.map((nonFollowersListItem: User) => (
           <NonFollowersListItem
             key={nonFollowersListItem.id}
             {...nonFollowersListItem}

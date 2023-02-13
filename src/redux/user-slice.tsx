@@ -12,15 +12,11 @@ const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    setUserURL(state, action): void {
-      const baseURL = 'https://www.instagram.com/';
-      const userURL: URL = new URL(action.payload, baseURL);
-
+    setUsername (state, action): void {
       state.username = action.payload;
-      state.userURL = userURL.href;
-    },
+    }
   },
 });
 
-export const { setUserURL } = userSlice.actions;
-export const user = userSlice.reducer;
+export const { setUsername } = userSlice.actions;
+export const userInfo = userSlice.reducer;

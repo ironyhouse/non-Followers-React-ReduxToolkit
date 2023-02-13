@@ -1,4 +1,4 @@
-import { createAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import User from './interfaces';
 import { toast } from 'react-toastify';
 
@@ -12,12 +12,25 @@ const initialState: {
 
 export const fetchUserById = createAsyncThunk(
   'nonFollowers/fetchNonFollowers',
-  async (username, _) => {
-    const response: any = await fetch(
-      'https://jsonplaceholder.typicode.com/uses'
-    );
+  async (userURL: URL, _) => {
+    const response: Promise<User[]> = await fetch(
+      'https://jsonplaceholder.typicode.com/users1'
+    )
+      .then((response) => {
+        if (!response.ok) {
+          const message = `Bad request: ${response.status}`;
+          throw new Error(message);
+        }
 
-    return response.json();
+        return response.json();
+      })
+      .catch((error) => {
+        toast.error(error.message);
+        console.log(error);
+        return [];
+      });
+
+    return response;
   }
 );
 
@@ -39,9 +52,6 @@ const nonFollowersListSlice = createSlice({
       state.nonFollowersList = [];
     });
     builder.addCase(fetchUserById.rejected, (state, action) => {
-      if (action.error.message) {
-        toast(action.error.message);
-      }
       state.isLoading = false;
     });
   },

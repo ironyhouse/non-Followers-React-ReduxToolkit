@@ -1,8 +1,9 @@
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import logo from '../static/images/Instagram-Logo.svg';
+import User from '../redux/interfaces';
 
-function NonFollowersListItem({ name, username }: any) {
+function NonFollowersListItem({ name, userURL }: User) {
   return (
     <ListItem>
       <img
@@ -17,7 +18,7 @@ function NonFollowersListItem({ name, username }: any) {
         src={logo}
         loading="lazy"
       />
-      <ListItemText primary={username} secondary={name} />
+      <ListItemText primary={userURL} secondary={name} />
     </ListItem>
   );
 }

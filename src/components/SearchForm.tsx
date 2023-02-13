@@ -3,20 +3,21 @@ import Logo from '../static/images/Instagram-Logo.svg';
 import SearchIcon from '@mui/icons-material/Search';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
-
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setUserURL } from '../redux/user-slice';
+import { setUsername } from '../redux/user-slice';
 import { fetchUserById } from '../redux/nonFollowers-slice';
 import { AppDispatch } from '../redux/store';
 import { RootState } from '../redux/store';
 
 export default function SearchForm() {
   const dispatch = useDispatch<AppDispatch>();
-  const [username, setUsername] = useState('');
   const [isUserURLValid, setUserURLValid] = useState(true);
   const isLoading = useSelector((state: RootState) => {
     return state.followers.isLoading;
+  });
+  const username = useSelector((state: RootState) => {
+    return state.user.username;
   });
 
   const checkUsernameInput = (inputData: string) => {
@@ -24,7 +25,7 @@ export default function SearchForm() {
     let regExp = new RegExp(/^[a-zA-Z0-9_.]{1,30}$/);
 
     if (regExp.test(username)) {
-      setUsername(username);
+      dispatch(setUsername(username));
       setUserURLValid(true);
     } else {
       setUserURLValid(false);
@@ -32,8 +33,10 @@ export default function SearchForm() {
   };
 
   const requestNonFollowers = () => {
-    dispatch(setUserURL(username));
-    dispatch(fetchUserById());
+    const baseURL = 'https://www.instagram.com/';
+    const userURL: URL = new URL(username, baseURL);
+
+    dispatch(fetchUserById(userURL));
   };
 
   return (

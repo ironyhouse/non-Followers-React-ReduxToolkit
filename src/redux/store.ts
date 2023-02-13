@@ -1,11 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { nonFollowersList } from './nonFollowers-slice';
-import { user } from './user-slice';
+import { userInfo } from './user-slice';
 
 export const store = configureStore({
   reducer: {
     followers: nonFollowersList,
-    search: user,
+    user: userInfo,
   },
   devTools: true,
 });
