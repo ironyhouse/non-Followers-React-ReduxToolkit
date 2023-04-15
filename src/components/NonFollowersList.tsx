@@ -14,7 +14,6 @@ function NonFollowersList() {
   return (
     <Box
       sx={{
-        mt: 8,
         flexDirection: 'column',
         alignItems: 'flex-start',
       }}

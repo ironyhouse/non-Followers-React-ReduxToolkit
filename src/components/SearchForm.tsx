@@ -46,7 +46,6 @@ export default function SearchForm() {
         justifyContent: 'center',
         alignItems: 'center',
         flexDirection: 'column',
-        margin: '10%',
       }}
       onSubmit={(event) => {
         event.preventDefault();

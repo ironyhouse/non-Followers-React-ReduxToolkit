@@ -5,9 +5,11 @@ import { toast } from 'react-toastify';
 const initialState: {
   nonFollowersList: User[];
   isLoading: boolean;
+  error: string | null;
 } = {
   nonFollowersList: [],
   isLoading: false,
+  error: null
 };
 
 export const fetchUserById = createAsyncThunk(
@@ -48,14 +50,37 @@ const nonFollowersListSlice = createSlice({
       state.isLoading = false;
     });
     builder.addCase(fetchUserById.pending, (state, _) => {
-      state.isLoading = true;
       state.nonFollowersList = [];
+      state.isLoading = true;
+      state.error = null;
     });
     builder.addCase(fetchUserById.rejected, (state, action) => {
       state.isLoading = false;
+      // state.error = action.payload || action.meta.error;
     });
   },
 });
 
 export const { setNonFollowersList } = nonFollowersListSlice.actions;
 export const nonFollowersList = nonFollowersListSlice.reducer;
+
+
+
+
+
+async function getNumberOfMovies(substr) {
+    let endpoint = `https://jsonmock.hackerrank.com/api/moviesdata/search/?Title=${substr}`;
+
+    let total = await fetch(endpoint)
+        .then((response) => {
+            console.log(response);
+            return response.json();
+        })
+        .then((response) => {
+            return response.data.length;
+        })
+
+    console.log(total)
+
+    return total
+}

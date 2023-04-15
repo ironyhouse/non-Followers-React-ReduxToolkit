@@ -1,27 +1,22 @@
-import Container from '@mui/material/Container';
-import NonFollowersList from './components/NonFollowersList';
-import SearchForm from './components/SearchForm';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './App.css';
+import NavBar from './components/NavBar';
+import AppRouter from './components/AppRouter';
+import { Container } from '@mui/material';
 
-import { useSelector } from 'react-redux';
-import { RootState } from './redux/store';
-
-// FIXME: nonFollowersList: Promise<User[]>
-// FIXME: fix any
-// TODO: api URL
+// ! fix setup tests / import jest-dom / jest config
+// TODO: navigate to second page after getting data
+// TODO: inst API
+// TODO: authorization
+// TODO: response non followers
 
 function App() {
-  const isNonFollowersListEmpty = useSelector((state: RootState) => {
-    return !!state.followers.nonFollowersList.length;
-  });
-
   return (
     <div className="App">
       <Container component="main" maxWidth="sm">
-        <SearchForm />
-        {isNonFollowersListEmpty && <NonFollowersList />}
+        <NavBar />
+        <AppRouter />
         {/* Error */}
         <ToastContainer
           position="top-center"
